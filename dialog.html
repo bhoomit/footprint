@@ -1,0 +1,60 @@
+<html>
+<head>
+	<script type="text/javascript">
+		function getStats(tab)
+		{
+			document.getElementById("stats").style.display = "none";
+			document.getElementById("loader").style.display = "block";
+			var url = tab.url;
+			var requestUrl = "https://api.facebook.com/method/links.getStats?format=json&urls=" + url
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					document.getElementById("stats").style.display = "block";
+					document.getElementById("loader").style.display = "none";
+					var values = eval(xmlhttp.responseText)[0];
+					document.getElementById("share").innerHTML= values["share_count"];
+					document.getElementById("like").innerHTML= values["like_count"];
+					document.getElementById("comment").innerHTML= values["comment_count"];
+					document.getElementById("total").innerHTML= values["total_count"];
+				}
+			}
+			xmlhttp.open("GET",requestUrl,true);
+			xmlhttp.send();
+		}
+	
+	</script>
+	<style>
+		.row{
+			display:table-row;
+		}
+		.column{
+			float:left;
+			width:100px;
+		}
+	</style>
+</head>
+<body onload="chrome.tabs.getSelected(null,getStats);">
+	<div id="loader"><img src="loader.gif"/></div>
+	<div id="stats" style="width:200px;height:100px;word-wrap:break-word;display:none;">
+		<div class="row">
+			<div class="column">Shares</div>
+			<div id="share" class="column"></div>
+		</div>
+		<div class="row">
+			<div class="column">Likes</div>
+			<div id="like" class="column"></div>
+		</div>
+		<div class="row">
+			<div class="column">Comments</div>
+			<div id="comment" class="column"></div>
+		</div>
+		<div class="row">
+			<div class="column">Total</div>
+			<div id="total" class="column"></div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "Footprint",
+  "version": "1.0",
+  "description": "Know page's social foot print.",
+  "icons": { "16": "icon48.png",
+			"48": "icon48.png",
+			"128": "icon128.png" },
+  "page_action": {
+	"default_icon": "icon48.png", 
+	"default_title": "Social Foorprint",
+	"default_popup": "dialog.html" 
+  },
+  "options_page": "dialog.html",
+  "permissions": [
+	"tabs",
+	"*://*.facebook.com/*"
+  ],
+  "background_page": "bg.html"
+}
+
+
